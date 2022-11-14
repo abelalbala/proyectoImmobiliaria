@@ -8,16 +8,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link <?php echo ($site=="home") ? "active": "" ?>" aria-current="page" href="#">Home</a>
+                        <a class="nav-link <?php echo ($site=="home") ? "active": "" ?>" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Llistat</a>
+                        <a class="nav-link" href="#">Llistat</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Mapa</a>
+                        <a class="nav-link" href="#">Mapa</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link disabled">Esborrany</a>
+                        <a class="nav-link disabled" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  aria-current="page" href="registre.php">Registre</a>
                     </li>
                 </ul>
             </div>

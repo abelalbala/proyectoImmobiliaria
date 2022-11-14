@@ -11,8 +11,6 @@ get_header("home");
     <form action="" method="POST">
         
     </form>
-
-    
 </div>
 
 

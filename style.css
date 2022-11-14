@@ -1,0 +1,14 @@
+form {
+    margin-left: 100px;
+    margin-top: 20px;
+}
+.inputKo {
+    border-color: red;
+}
+.inputOk {
+    border-color: green;
+}
+
+#errorEmail {color:red; display:none;}
+
+.checkPassword {color: red; margin-bottom: -10px;}
