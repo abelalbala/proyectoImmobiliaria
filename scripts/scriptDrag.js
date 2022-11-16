@@ -6,28 +6,69 @@ let button = document.getElementById("dragButton");
 let input  = document.getElementById("input-file");
 let preview = document.getElementById("preview");
 
-let evt = ["dragover", "dragleave", "drop"];
-dropArea.addEventListener(evt, prevDefault);
+let events = ["dragover", "dragleave", "drop"];
+events.forEach(evt => {
+    dropArea.addEventListener(evt, prevDefault);
+});
 function prevDefault (e) {
     e.preventDefault();
 }
-
 
 dropArea.addEventListener("dragover", function(){
     dropArea.classList.add("active");
     dragDropText.innerHTML = "Drop to upload files";
 });
 
-dropArea.addEventListener("dragleave", function(){
+dropArea.addEventListener("dragleave", removeActiveDropArea);
+function removeActiveDropArea() {
     dropArea.classList.remove("active");
-    dragDropText.innerHTML = "Upload files";
-});
+    dragDropText.innerHTML = "Drag & Drop files";
+}
 
 
 dropArea.addEventListener("drop", (event)=>{
+    removeActiveDropArea()
     files = files.concat(Array.from(event.dataTransfer.files));
+    showFiles()
 });
 
+
 function showFiles() {
-    
+    if(files.length == 0);
+    else {
+        files.forEach((file, index) => {
+            processFile(file, index)
+        });
+    }
+}
+function processFile(file, index) {
+    const validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+    const docType = file.type;
+    let bool = false
+    validExtensions.forEach(type => {
+        if(docType == type) bool = true;
+    });
+
+    if(bool == false) {
+        files.splice(index, 1)
+        console.log(files.length)
+        alert("No era una imatge valida")
+    } else {
+        if(files.length != 0) {
+            let reader = new FileReader();
+            preview.innerHTML = ""
+            
+            files.forEach(element => {
+                console.log(element);
+                preview.innerHTML += `<div class='previewImage'>
+                    <img src="${element.name}"/>
+                    <span>${element.name}</span>
+                    <span onclick="remove(${index})" class="material-symbols-outlined removeBtn">c</span>
+                </div>`;
+            });
+        }
+    }
+}
+function remove(index) {
+
 }
