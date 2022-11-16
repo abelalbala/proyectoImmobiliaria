@@ -31,7 +31,7 @@ get_header("home");
         <input type="submit" >
     </form>
 </div>
-<script src="script.js"></script>
+<script src="scripts/scriptRegistre.js"></script>
 
 <?php 
 
@@ -47,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (Exception $e) {
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }
-    
+    //$consulta= $con->prepare("SELECT id, titulo FROM pelicula WHERE id<= ?");
+    //$consulta->bind_param("i", $valor1);
 }
 
 ?>

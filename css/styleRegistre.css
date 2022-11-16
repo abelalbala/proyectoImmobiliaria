@@ -9,6 +9,10 @@ form {
     border-color: green;
 }
 
-#errorEmail {color:red; display:none;}
+#errorEmail {
+    color:red; display:none;
+}
 
-.checkPassword {color: red; margin-bottom: -10px;}
+.checkPassword {
+    color: red; margin-bottom: -10px;
+}

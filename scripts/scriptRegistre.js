@@ -8,7 +8,6 @@ validationUsername.addEventListener("focusout", function(){
     }
 })
 
-
 let validationEmail = document.getElementById("validationEmail")
 let pErrorEmail = document.getElementById("errorEmail")
 validationEmail.addEventListener("focusout", function(){
