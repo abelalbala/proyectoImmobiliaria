@@ -36,19 +36,35 @@ get_header("home");
 <?php 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
     try { 
         $con = new mysqli('localhost', 'abel', 'abel', 'daw_m7');
         if ($con->connect_errno) {
             printf("Connect failed: %s\n", $mysqli->connect_error);
-            echo "boss";
             exit();
         } 
+        $userName = $_POST['userName'];
+        $userEmail = $_POST['email'];
+        $userPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        if(comprovaEmailUnic($con, $userEmail)) {
+            $consulta= $con->prepare("INSERT INTO users(user_name, user_email, user_password) VALUES (?,?,?)");
+            $consulta->bind_param("sss", $userName, $userEmail, $userPassword);
+            $consulta->execute();
+            
+        } else echo "Email repetit, posa un altre per registrarte!!";
+
     } catch (Exception $e) {
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }
-    //$consulta= $con->prepare("SELECT id, titulo FROM pelicula WHERE id<= ?");
-    //$consulta->bind_param("i", $valor1);
+}
+function comprovaEmailUnic($con, $userEmail) {
+    $consulta= $con->prepare("SELECT user_email FROM users WHERE user_email = ?");
+    $consulta->bind_param("s", $userEmail);
+    $consulta->execute();
+    $consulta->bind_result($result);
+    $consulta->fetch();
+    if(empty($result)) return true;
+    return false;
 }
 
 ?>

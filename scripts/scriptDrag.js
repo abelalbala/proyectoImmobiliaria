@@ -55,16 +55,27 @@ function processFile(file, index) {
         alert("No era una imatge valida")
     } else {
         if(files.length != 0) {
-            let reader = new FileReader();
             preview.innerHTML = ""
+            let srcImg;
+            let reader = new FileReader();
             
             files.forEach(element => {
-                console.log(element);
+                reader.addEventListener("load", () => {
+                    srcImg = reader.result;
+                }, false);
+
+                reader.readAsDataURL(input)
                 preview.innerHTML += `<div class='previewImage'>
                     <img src="${element.name}"/>
                     <span>${element.name}</span>
-                    <span onclick="remove(${index})" class="material-symbols-outlined removeBtn">c</span>
+                    <span onclick="remove(${index})" class="material-symbols-outlined removeBtn">x</span>
                 </div>`;
+                
+                /*preview.innerHTML += `<div class='previewImage'>
+                    <img src="${element.name}"/>
+                    <span>${element.name}</span>
+                    <span onclick="remove(${index})" class="material-symbols-outlined removeBtn">x</span>
+                </div>`;*/
             });
         }
     }
