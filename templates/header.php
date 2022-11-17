@@ -17,7 +17,7 @@
                         <a class="nav-link" href="#">Mapa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Login</a>
+                        <a class="nav-link" aria-current="page" href="login.php">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"  aria-current="page" href="registre.php">Registre</a>

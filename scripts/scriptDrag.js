@@ -32,7 +32,6 @@ dropArea.addEventListener("drop", (event)=>{
     showFiles()
 });
 
-
 function showFiles() {
     if(files.length == 0);
     else {
@@ -51,35 +50,46 @@ function processFile(file, index) {
 
     if(bool == false) {
         files.splice(index, 1)
-        console.log(files.length)
         alert("No era una imatge valida")
     } else {
         if(files.length != 0) {
-            preview.innerHTML = ""
-            let srcImg;
             let reader = new FileReader();
-            
-            files.forEach(element => {
-                reader.addEventListener("load", () => {
-                    srcImg = reader.result;
-                }, false);
-
-                reader.readAsDataURL(input)
-                preview.innerHTML += `<div class='previewImage'>
-                    <img src="${element.name}"/>
-                    <span>${element.name}</span>
-                    <span onclick="remove(${index})" class="material-symbols-outlined removeBtn">x</span>
-                </div>`;
+            preview.innerHTML = ""
                 
-                /*preview.innerHTML += `<div class='previewImage'>
-                    <img src="${element.name}"/>
-                    <span>${element.name}</span>
-                    <span onclick="remove(${index})" class="material-symbols-outlined removeBtn">x</span>
-                </div>`;*/
-            });
+            reader.addEventListener("load", () => {
+                preview.innerHTML += `<div class='previewImage'>
+                            <img src="${reader.result}"/>
+                            <span>${file.name}</span>
+                            <span onclick="remove(${index})" class="material-symbols-outlined removeBtn">x</span>
+                        </div>`;
+            }, false);
+
+            reader.readAsDataURL(file)
         }
     }
 }
 function remove(index) {
-
+    files.splice(index, 1)
+    preview.innerHTML = ""
+    showFiles()
 }
+
+button.addEventListener("click", function(e){
+    e.preventDefault();
+    input.click();
+});
+
+/*input.addEventListener("change", function(){
+    files = files.concat(Array.from(.dataTransfer.files));
+    showFiles()
+});*/
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();  
+        const dataTransfer = new DataTransfer(); 
+        files.forEach(file=>{
+        dataTransfer.items.add(file);
+    })            
+    input.files = dataTransfer.files; 
+    form.submit();
+});    
