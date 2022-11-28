@@ -1,8 +1,6 @@
 <?php
 require "functions.php";
-
 get_head();
-
 get_header("home"); 
 ?>
 
@@ -43,13 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $consulta->bind_param("s", $userEmail);
         $consulta->execute();
         $consulta->bind_result($email, $password);
-        $consulta->fetch();
-
-        if($email == "") echo "Email incorrecte";
+        $consulta->store_result();
+        if(!$consulta->num_rows > 0) echo "Email incorrecte";
         else {
+            $consulta->fetch();
             if(!password_verify($userPassword, $password)) echo "Dadas incorrectas";
             else {
                 // Redirigir a su sesion de aplicacion
+                $_SESSION['userEmail'] = $userEmail;
+                header("Location: ./llista.php");
+                quit();
             }
         }
         

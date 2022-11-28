@@ -1,8 +1,6 @@
 <?php
 require "functions.php";
-
 get_head();
-
 get_header("home"); 
 ?>
 
@@ -50,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $consulta= $con->prepare("INSERT INTO users(user_name, user_email, user_password) VALUES (?,?,?)");
             $consulta->bind_param("sss", $userName, $userEmail, $userPassword);
             $consulta->execute();
+
+            
             
         } else echo "Email repetit, posa un altre per registrarte!!";
 
@@ -62,11 +62,17 @@ function comprovaEmailUnic($con, $userEmail) {
     $consulta->bind_param("s", $userEmail);
     $consulta->execute();
     $consulta->bind_result($result);
-    $consulta->fetch();
-    if(empty($result)) return true;
+    $consulta->store_result();
+    if(!$consulta->num_rows > 0) return true;
     return false;
 }
 
 ?>
 
 <?php get_footer(); ?>
+
+<?php
+
+
+
+?>

@@ -10,3 +10,4 @@
     <title>Immobiliaria</title>
 </head>
 <body>
+<?php session_start(); ?> 

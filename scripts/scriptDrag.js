@@ -5,6 +5,7 @@ let dragDropText = document.getElementById("dragText");
 let button = document.getElementById("dragButton");
 let input  = document.getElementById("input-file");
 let preview = document.getElementById("preview");
+let form = document.getElementById("productForm")
 
 let events = ["dragover", "dragleave", "drop"];
 events.forEach(evt => {
@@ -79,10 +80,10 @@ button.addEventListener("click", function(e){
     input.click();
 });
 
-/*input.addEventListener("change", function(){
-    files = files.concat(Array.from(.dataTransfer.files));
+input.addEventListener("change", function(){
+    files = files.concat(Array.from(input.files));
     showFiles()
-});*/
+});
 
 form.addEventListener("submit", function(e){
     e.preventDefault();  
