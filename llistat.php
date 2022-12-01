@@ -9,7 +9,7 @@ if(!isset($_SESSION['user'])) {
 ?>
 
 <div class="main">
-    <form id="productForm" action="" method="POST">
+    <form id="form" action="actProducto.php" method="POST" enctype="multipart/form-data">
         <label for="">Nombre</label>
         <br>
         <input type="text" name="nomProducto">
@@ -37,10 +37,21 @@ if(!isset($_SESSION['user'])) {
             <input type="file" name="inputFiles[]" id="input-file" hidden multiple />
         </div>       
         <div id="preview"></div>
-        <input type="submit">
+        <div id="map"></div>  
+        <br>
+        <input type="text" name="adreca" value="Carrer de la Selva de Mar 211 08020 Barcelona" id="adreca"/>  
+        <button type="button" class="btn btn-secondary" id="findLoc">Buscar adreça</button>  
+        <br>
+        <input type="hidden" name="lat" value="" id="latitude"/>  
+        <input type="hidden" name="lng" value="" id="longitude"/> 
+        <br><br>
+        <input id="inputSubmit" type="submit">
     </form>
 </div>
 <script src="scripts/scriptDrag.js"></script>
 <script src="scripts/scriptCategorias.js"></script>
+<script src="scripts/scriptMap.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1LqPNfReHlA4RTAU1YOuVKZxTqvCPa0g&callback=initMap" async defer></script>
+
 
 <?php get_footer(); ?>

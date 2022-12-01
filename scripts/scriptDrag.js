@@ -5,7 +5,7 @@ let dragDropText = document.getElementById("dragText");
 let button = document.getElementById("dragButton");
 let input  = document.getElementById("input-file");
 let preview = document.getElementById("preview");
-let form = document.getElementById("productForm")
+let form = document.getElementById("form")
 
 let events = ["dragover", "dragleave", "drop"];
 events.forEach(evt => {
@@ -15,7 +15,7 @@ function prevDefault (e) {
     e.preventDefault();
 }
 
-dropArea.addEventListener("dragover", function(){
+dropArea.addEventListener("dragover", function() {
     dropArea.classList.add("active");
     dragDropText.innerHTML = "Drop to upload files";
 });
@@ -27,7 +27,7 @@ function removeActiveDropArea() {
 }
 
 
-dropArea.addEventListener("drop", (event)=>{
+dropArea.addEventListener("drop", (event)=> {
     removeActiveDropArea()
     files = files.concat(Array.from(event.dataTransfer.files));
     showFiles()
@@ -75,22 +75,23 @@ function remove(index) {
     showFiles()
 }
 
-button.addEventListener("click", function(e){
+button.addEventListener("click", function(e) {
     e.preventDefault();
     input.click();
 });
 
-input.addEventListener("change", function(){
+input.addEventListener("change", function() {
     files = files.concat(Array.from(input.files));
     showFiles()
 });
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", function(e) {
+    console.log("entro")
     e.preventDefault();  
-        const dataTransfer = new DataTransfer(); 
-        files.forEach(file=>{
+    var dataTransfer = new DataTransfer(); 
+    files.forEach(file=>{
         dataTransfer.items.add(file);
-    })            
+    })   
     input.files = dataTransfer.files; 
     form.submit();
 });    

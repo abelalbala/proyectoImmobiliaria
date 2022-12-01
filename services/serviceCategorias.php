@@ -1,6 +1,7 @@
 <?php
 
 try { 
+    
     $con = new mysqli('localhost', 'abel', 'abel', 'daw_m7');
     if ($con->connect_errno) {
         printf("Connect failed: %s\n", $mysqli->connect_error);
