@@ -39,7 +39,7 @@ if(!isset($_SESSION['user'])) {
         <div id="preview"></div>
         <div id="map"></div>  
         <br>
-        <input type="text" name="adreca" value="Carrer de la Selva de Mar 211 08020 Barcelona" id="adreca"/>  
+        <input id="inptCalle" type="text" name="adreca" value="Carrer de la Selva de Mar 211 08020 Barcelona" id="adreca"/>  
         <button type="button" class="btn btn-secondary" id="findLoc">Buscar adreça</button>  
         <br>
         <input type="hidden" name="lat" value="" id="latitude"/>  

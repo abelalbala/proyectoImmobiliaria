@@ -11,6 +11,9 @@
                         <a class="nav-link <?php echo ($site=="home") ? "active": "" ?>" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="producto.php">Ingresa Producto</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="llistat.php">Llistat</a>
                     </li>
                     <li class="nav-item">

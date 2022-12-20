@@ -88,7 +88,7 @@ input.addEventListener("change", function() {
 form.addEventListener("submit", function(e) {
     console.log("entro")
     e.preventDefault();  
-    var dataTransfer = new DataTransfer(); 
+    let dataTransfer = new DataTransfer(); 
     files.forEach(file=>{
         dataTransfer.items.add(file);
     })   
