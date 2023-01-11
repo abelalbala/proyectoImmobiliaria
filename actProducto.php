@@ -1,10 +1,15 @@
 <?php
-
-echo $_POST["nomProducto"];
+session_start();
+/*echo $_POST["nomProducto"];
 echo "<br>";
 print_r($_FILES["inputFiles"]);
-echo "<br><br>";
- 
+echo "<br><br>";*/
+
+// CARGAR IMAGENES, EN ESPERA POR EL MOMENTO
+$total = count($_FILES['inputFiles']['name']);
+echo $total . "---";
+print_r($_FILES["inputFiles"]);
+/*$nombreArchivos = [];
 for ($i=0; $i<count($_FILES["inputFiles"]["name"]); $i++) {
     $archivo = $_FILES['inputFiles']['name'][$i];
     $tamano = $_FILES['inputFiles']['size'][$i];
@@ -13,8 +18,8 @@ for ($i=0; $i<count($_FILES["inputFiles"]["name"]); $i++) {
     echo "Name: ".$archivo.'<br>';
     if (move_uploaded_file($temp, 'public/'.$archivo)) {
         chmod('public/'.$archivo, 0777);
+        array_push($nombreArchivos, $archivo.";");
         echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
-        
     }
     else {
        echo '<div><b>Ocurrió algún error al subir el fichero. No pudo guardarse.</b></div>';
@@ -32,18 +37,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $preuProducto = $_POST['preuProducto'];
         $preuDescompteProducto = $_POST['preuDescompteProducto'];
         $descripcioProducto = $_POST['descripcioProducto'];
-        $categoria = $_POST['preuProducto'];
-        $subcategoria = $_POST['preuProducto'];
+        $categoria_id = buscaCategoriaId($con);
+        $subcategoria_id = buscaSubcategoriaId($con);
         $inputFiles = $_POST['inputFiles'];
         $lat = $_POST['lat'];
         $lng = $_POST['lng'];
 
+        $nombreArchivos = explode(";", $nombreArchivos);
+
+        // INGRESA PRODUCTE
         if(comprovaNomUnic($con, $nomProducto)) {
-            $consulta= $con->prepare("INSERT INTO productos(user_id, producto_name, producto_precio, producto_precio_descuento, producto_descripcion, producto_imgs) VALUES (?,?,?,?,?,?)");
-            $consulta->bind_param("isiiss", buscaIdUser(), $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $);
+            $userId = buscaUserId($con);
+            $consulta= $con->prepare("INSERT INTO productos(user_id, producto_name, producto_precio, producto_precio_descuento, producto_descripcion, producto_imgs,lat, lng, categoria_id, subcategoria_id) VALUES (?,?,?,?,?,?,?,?,?)");
+            $consulta->bind_param("isiisiiii", $userId, $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $nombreArchivos,$lat, $lng, $categoria_id, $subcategoria_id);
             $consulta->execute();
+            echo "Insertado correctamente!!";
             
-        } else echo "Email repetit, posa un altre per registrarte!!";
+        } else echo "Ya has ingresat un producte amb el mateix nom o alguna dada no es correctes!!";
 
     } catch (Exception $e) {
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
@@ -59,5 +69,39 @@ function comprovaNomUnic($con, $nomProducto) {
     if(!$consulta->num_rows > 0) return true;
     return false;
 }
+
+function buscaUserId($con) {
+    if(isset($_SESSION['userEmail'])) {
+        
+        $consulta= $con->prepare("SELECT user_id FROM users WHERE user_email = ?");
+        $consulta->bind_param("s", $_SESSION['userEmail']);
+        $consulta->execute();
+        $consulta->bind_result($userId);
+        $consulta->store_result();
+        $consulta->fetch();
+        return $userId;
+    }
+}
+
+function buscaCategoriaId($con) {
+    $consulta= $con->prepare("SELECT categoria_id FROM categorias WHERE categoria_name = ?");
+    $consulta->bind_param("s", $_POST['Categorias']);
+    $consulta->execute();
+    $consulta->bind_result($catId);
+    $consulta->store_result();
+    $consulta->fetch();
+    return $catId;
+}
+
+function buscaSubcategoriaId($con) {
+    $consulta= $con->prepare("SELECT subcategoria_id FROM subcategorias WHERE subcategoria_name = ?");
+    $consulta->bind_param("s", $_POST['selectSubcategorias']);
+    $consulta->execute();
+    $consulta->bind_result($subcatId);
+    $consulta->store_result();
+    $consulta->fetch();
+    return $subcatId;
+}
+*/
 
 ?>

@@ -49,7 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $consulta->bind_param("sss", $userName, $userEmail, $userPassword);
             $consulta->execute();
 
-            
+            // Redirigir a su sesion de aplicacion
+            $_SESSION['userEmail'] = $userEmail;
+            header("Location: ./producto.php");
+            quit();
             
         } else echo "Email repetit, posa un altre per registrarte!!";
 

@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             else {
                 // Redirigir a su sesion de aplicacion
                 $_SESSION['userEmail'] = $userEmail;
-                header("Location: ./llista.php");
+                header("Location: ./producto.php");
                 quit();
             }
         }

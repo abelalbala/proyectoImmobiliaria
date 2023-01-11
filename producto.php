@@ -3,8 +3,12 @@ require "functions.php";
 get_head();
 get_header("home"); 
 
-if(!isset($_SESSION['user'])) {
-    //header("Location: ./index.php");
+if(!isset($_SESSION['userEmail'])) {
+    header("Location: ./index.php");
+
+    // abela
+    // abela@gmail.com
+    // aA1|aaaa
 }
 ?>
 
@@ -34,7 +38,7 @@ if(!isset($_SESSION['user'])) {
         <div class="drop-area" draggable="true">
             <h2 id="dragText">Drag & Drop files</h2>
             <button id="dragButton">Upload files</button>
-            <input type="file" name="inputFiles[]" id="input-file" hidden multiple />
+            <input type="file" name="inputFiles[]" id="input-file" hidden multiple="multiple" />
         </div>       
         <div id="preview"></div>
         <div id="map"></div>  
