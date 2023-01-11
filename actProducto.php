@@ -9,7 +9,7 @@ echo "<br><br>";*/
 $total = count($_FILES['inputFiles']['name']);
 echo $total . "---";
 print_r($_FILES["inputFiles"]);
-/*$nombreArchivos = [];
+$nombreArchivos = [];
 for ($i=0; $i<count($_FILES["inputFiles"]["name"]); $i++) {
     $archivo = $_FILES['inputFiles']['name'][$i];
     $tamano = $_FILES['inputFiles']['size'][$i];
@@ -18,7 +18,7 @@ for ($i=0; $i<count($_FILES["inputFiles"]["name"]); $i++) {
     echo "Name: ".$archivo.'<br>';
     if (move_uploaded_file($temp, 'public/'.$archivo)) {
         chmod('public/'.$archivo, 0777);
-        array_push($nombreArchivos, $archivo.";");
+        array_push($nombreArchivos, $archivo);
         echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
     }
     else {
@@ -43,14 +43,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $lat = $_POST['lat'];
         $lng = $_POST['lng'];
 
-        $nombreArchivos = explode(";", $nombreArchivos);
+        $nombreArchivos = implode(";", $nombreArchivos);
+        
 
         // INGRESA PRODUCTE
         if(comprovaNomUnic($con, $nomProducto)) {
+            
             $userId = buscaUserId($con);
-            $consulta= $con->prepare("INSERT INTO productos(user_id, producto_name, producto_precio, producto_precio_descuento, producto_descripcion, producto_imgs,lat, lng, categoria_id, subcategoria_id) VALUES (?,?,?,?,?,?,?,?,?)");
-            $consulta->bind_param("isiisiiii", $userId, $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $nombreArchivos,$lat, $lng, $categoria_id, $subcategoria_id);
+            $consulta= $con->prepare("INSERT INTO productos(user_id, producto_name, producto_precio, producto_precio_descuento, producto_descripcion, producto_imgs, lat, lng, categoria_id, subcategoria_id) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            $consulta->bind_param("isiissiiii", $userId, $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $nombreArchivos, $lat, $lng, $categoria_id, $subcategoria_id);
             $consulta->execute();
+            
             echo "Insertado correctamente!!";
             
         } else echo "Ya has ingresat un producte amb el mateix nom o alguna dada no es correctes!!";
@@ -102,6 +105,6 @@ function buscaSubcategoriaId($con) {
     $consulta->fetch();
     return $subcatId;
 }
-*/
+
 
 ?>
