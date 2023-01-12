@@ -1,9 +1,5 @@
 <?php
 session_start();
-/*echo $_POST["nomProducto"];
-echo "<br>";
-print_r($_FILES["inputFiles"]);
-echo "<br><br>";*/
 
 // CARGAR IMAGENES, EN ESPERA POR EL MOMENTO
 $total = count($_FILES['inputFiles']['name']);
@@ -45,10 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $nombreArchivos = implode(";", $nombreArchivos);
         
-
         // INGRESA PRODUCTE
-        if(comprovaNomUnic($con, $nomProducto)) {
-            
+        if(comprovaNomUnic($con, $nomProducto)) {          
             $userId = buscaUserId($con);
             $consulta= $con->prepare("INSERT INTO productos(user_id, producto_name, producto_precio, producto_precio_descuento, producto_descripcion, producto_imgs, lat, lng, categoria_id, subcategoria_id) VALUES (?,?,?,?,?,?,?,?,?,?)");
             $consulta->bind_param("isiissiiii", $userId, $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $nombreArchivos, $lat, $lng, $categoria_id, $subcategoria_id);
@@ -74,8 +68,7 @@ function comprovaNomUnic($con, $nomProducto) {
 }
 
 function buscaUserId($con) {
-    if(isset($_SESSION['userEmail'])) {
-        
+    if(isset($_SESSION['userEmail'])) {       
         $consulta= $con->prepare("SELECT user_id FROM users WHERE user_email = ?");
         $consulta->bind_param("s", $_SESSION['userEmail']);
         $consulta->execute();
@@ -105,6 +98,5 @@ function buscaSubcategoriaId($con) {
     $consulta->fetch();
     return $subcatId;
 }
-
 
 ?>
