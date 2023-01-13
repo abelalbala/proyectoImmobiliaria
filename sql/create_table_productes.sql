@@ -15,3 +15,4 @@ CREATE OR REPLACE table productos(
     FOREIGN KEY(categoria_id) REFERENCES categorias(categoria_id),
     FOREIGN KEY(subcategoria_id) REFERENCES subcategorias(subcategoria_id)
 );
+

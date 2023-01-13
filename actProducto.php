@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $consulta->bind_param("isiissiiii", $userId, $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $nombreArchivos, $lat, $lng, $categoria_id, $subcategoria_id);
             $consulta->execute();
             
-            echo "Insertado correctamente!!";
+            header("Location: ./llistat.php");
             
         } else echo "Ya has ingresat un producte amb el mateix nom o alguna dada no es correctes!!";
 
