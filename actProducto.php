@@ -33,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $preuProducto = $_POST['preuProducto'];
         $preuDescompteProducto = $_POST['preuDescompteProducto'];
         $descripcioProducto = $_POST['descripcioProducto'];
-        $categoria_id = buscaCategoriaId($con);
-        $subcategoria_id = buscaSubcategoriaId($con);
+        $categoria_id = $_POST['Categorias'];
+        $subcategoria_id = $_POST['selectSubcategorias'];
         $inputFiles = $_POST['inputFiles'];
         $lat = $_POST['lat'];
         $lng = $_POST['lng'];
@@ -79,7 +79,7 @@ function buscaUserId($con) {
     }
 }
 
-function buscaCategoriaId($con) {
+/*function buscaCategoriaId($con) {
     $consulta= $con->prepare("SELECT categoria_id FROM categorias WHERE categoria_name = ?");
     $consulta->bind_param("s", $_POST['Categorias']);
     $consulta->execute();
@@ -97,6 +97,6 @@ function buscaSubcategoriaId($con) {
     $consulta->store_result();
     $consulta->fetch();
     return $subcatId;
-}
+}*/
 
 ?>

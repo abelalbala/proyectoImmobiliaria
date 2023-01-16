@@ -5,6 +5,7 @@ get_header("home");
 
 if(!isset($_SESSION['userEmail'])) {
     header("Location: ./index.php");
+    quit();
 
     // abela
     // abela@gmail.com
@@ -21,15 +22,52 @@ if(!isset($_SESSION['userEmail'])) {
     <title>LListat</title>
 </head>
 <body>
-    <div class="imgs"></div>
+    <table>
+        <tr><th colspan="6"><h1>Listado de productos</h1><br></th></tr>
+        <tr>
 
-    <div class="info"></div>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Precio descuento</th>
+        <th>Descripcion</th>
+        <th>Categoria</th>
+        <th>Subcategoria</th>
+
+        </tr>
+
+        <?php
+        try { 
+            $con = new mysqli('localhost', 'abel', 'abel', 'daw_m7');
+            if ($con->connect_errno) {
+                printf("Connect failed: %s\n", $mysqli->connect_error);
+                exit();
+            } 
+            $sql = "select * from productos where user_id = ".buscaUserId($con);
+            $resultado = mysqli_query($con,$sql);
+
+            while($mostrar=mysqli_fetch_array($resultado)) {
+        ?>
+        <tr>
+            <td><?php echo $mostrar['producto_name']; ?></td>
+            <td><?php echo $mostrar['producto_precio']; ?></td>
+            <td><?php echo $mostrar['producto_precio_descuento']; ?></td>
+            <td><?php echo $mostrar['producto_descripcion']; ?></td>
+            <td><?php echo buscaCategoriaId($con, $mostrar['categoria_id']); ?></td>
+            <td><?php echo buscaSubcategoriaId($con, $mostrar['subcategoria_id']); ?></td>
+        </tr>
+        <?php
+            }
+        } catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        }
+        ?>
+    </table>
 </body>
 
 </html>
 
 <?php
-
+/*
 try { 
     $con = new mysqli('localhost', 'abel', 'abel', 'daw_m7');
     if ($con->connect_errno) {
@@ -37,8 +75,9 @@ try {
         exit();
     } 
 
+    // SELECT PRODUCTS
+
     $userId = buscaUserId($con);
-    
     $consulta= $con->prepare("SELECT producto_name, producto_precio, producto_precio_descuento, producto_descripcion, producto_imgs, lat, lng, categoria_id, subcategoria_id FROM productos WHERE user_id = ?");
     $consulta->bind_param("i", $userId);
     $consulta->execute();
@@ -68,7 +107,7 @@ try {
 } catch (Exception $e) {
     echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 }
-
+*/
 function buscaUserId($con) {
     if(isset($_SESSION['userEmail'])) {       
         $consulta= $con->prepare("SELECT user_id FROM users WHERE user_email = ?");
