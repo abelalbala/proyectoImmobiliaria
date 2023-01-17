@@ -1,7 +1,7 @@
 #map{  
-    height: 400px;  
-    width:600px;  
-    margin-bottom: 20px;
+  height: 400px;  
+  width:600px;  
+  margin-bottom: 20px;
 }  
 input{
   margin-bottom: 10px;
@@ -10,14 +10,19 @@ input{
   padding:5px 10px;
 }
 button{
-    border: 1px solid navy;
-    background: navy;
-    border-radius: 4px;
-    padding: 5px 10px;
-    color: white;
-    margin-bottom: 10px;
-    cursor: pointer;
+  border: 1px solid navy;
+  background: navy;
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: white;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 #adreca{
-width: 300px;
+  width: 300px;
+}
+
+th, td {
+  padding: 15px;
+  font-size: 20px;
 }

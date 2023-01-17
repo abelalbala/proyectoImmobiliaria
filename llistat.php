@@ -12,19 +12,10 @@ if(!isset($_SESSION['userEmail'])) {
     // aA1|aaaa
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LListat</title>
-</head>
-<body>
-    <table>
-        <tr><th colspan="6"><h1>Listado de productos</h1><br></th></tr>
-        <tr>
+<div class="mainLListat" style="text-align: center;">
+    <h1>Listado de productos</h1>
+    <br>
+    <table style="margin: auto;">    
 
         <th>Nombre</th>
         <th>Precio</th>
@@ -32,10 +23,11 @@ if(!isset($_SESSION['userEmail'])) {
         <th>Descripcion</th>
         <th>Categoria</th>
         <th>Subcategoria</th>
+        <th>Imagenes</th>
 
         </tr>
 
-        <?php
+        <?php       
         try { 
             $con = new mysqli('localhost', 'abel', 'abel', 'daw_m7');
             if ($con->connect_errno) {
@@ -47,6 +39,7 @@ if(!isset($_SESSION['userEmail'])) {
 
             while($mostrar=mysqli_fetch_array($resultado)) {
         ?>
+        
         <tr>
             <td><?php echo $mostrar['producto_name']; ?></td>
             <td><?php echo $mostrar['producto_precio']; ?></td>
@@ -54,6 +47,26 @@ if(!isset($_SESSION['userEmail'])) {
             <td><?php echo $mostrar['producto_descripcion']; ?></td>
             <td><?php echo buscaCategoriaId($con, $mostrar['categoria_id']); ?></td>
             <td><?php echo buscaSubcategoriaId($con, $mostrar['subcategoria_id']); ?></td>
+            <td>
+                <?php 
+                    $arrImgs = explode(" ", $mostrar['producto_imgs']);
+                    //echo $mostrar['producto_imgs'];
+                    //echo $arrImgs[0];
+                    echo "<div style='display:flex;'>";
+                    foreach ($arrImgs as $img) {
+                        if($img != null) echo "<img style='height: 200px; width: 250px;' class='imatges' src='public/".$img."'>"; 
+                    }
+                    echo "</div>";
+                ?>
+            </td>
+            
+            <td>
+                <div class="crud" style="">
+                    <?php echo "<a href='editar.php?name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."'>Editar</a>"?>
+                    <br><br>
+                    <?php echo "<a href='recibir.php?name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."'>Eliminar</a>"?>
+                </div>
+            </td>
         </tr>
         <?php
             }
@@ -62,9 +75,7 @@ if(!isset($_SESSION['userEmail'])) {
         }
         ?>
     </table>
-</body>
-
-</html>
+</div>
 
 <?php
 /*
@@ -74,6 +85,9 @@ try {
         printf("Connect failed: %s\n", $mysqli->connect_error);
         exit();
     } 
+
+        <?php echo "<a href='recibir.php?name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."'>Editar</a>"?>
+
 
     // SELECT PRODUCTS
 
