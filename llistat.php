@@ -62,9 +62,9 @@ if(!isset($_SESSION['userEmail'])) {
             
             <td>
                 <div class="crud" style="">
-                    <?php echo "<a href='editar.php?name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."'>Editar</a>"?>
+                    <?php echo "<a href='editar.php?id=".$mostrar['producto_id']."&name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."'>Editar</a>"?>
                     <br><br>
-                    <?php echo "<a href='recibir.php?name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."'>Eliminar</a>"?>
+                    <?php echo "<a href='eliminar.php?id=".$mostrar['producto_id']."'>Eliminar</a>"?>
                 </div>
             </td>
         </tr>
@@ -76,6 +76,13 @@ if(!isset($_SESSION['userEmail'])) {
         ?>
     </table>
 </div>
+
+<style>
+    th, td {
+  padding: 15px;
+  font-size: 20px;
+}
+</style>
 
 <?php
 /*
