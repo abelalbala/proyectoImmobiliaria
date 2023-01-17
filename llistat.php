@@ -21,6 +21,7 @@ if(!isset($_SESSION['userEmail'])) {
         <th>Precio</th>
         <th>Precio descuento</th>
         <th>Descripcion</th>
+        <th>Mapa</th>
         <th>Categoria</th>
         <th>Subcategoria</th>
         <th>Imagenes</th>
@@ -45,13 +46,14 @@ if(!isset($_SESSION['userEmail'])) {
             <td><?php echo $mostrar['producto_precio']; ?></td>
             <td><?php echo $mostrar['producto_precio_descuento']; ?></td>
             <td><?php echo $mostrar['producto_descripcion']; ?></td>
+            
+            <td> <div id="map" style="width: 500px; height: 50px;"></div> </td>
+
             <td><?php echo buscaCategoriaId($con, $mostrar['categoria_id']); ?></td>
             <td><?php echo buscaSubcategoriaId($con, $mostrar['subcategoria_id']); ?></td>
             <td>
                 <?php 
                     $arrImgs = explode(" ", $mostrar['producto_imgs']);
-                    //echo $mostrar['producto_imgs'];
-                    //echo $arrImgs[0];
                     echo "<div style='display:flex;'>";
                     foreach ($arrImgs as $img) {
                         if($img != null) echo "<img style='height: 200px; width: 250px;' class='imatges' src='public/".$img."'>"; 
@@ -76,6 +78,8 @@ if(!isset($_SESSION['userEmail'])) {
         ?>
     </table>
 </div>
+
+<script src="scripts/scriptRecullMapa"></script>
 
 <style>
     th, td {
@@ -129,6 +133,7 @@ try {
     echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 }
 */
+
 function buscaUserId($con) {
     if(isset($_SESSION['userEmail'])) {       
         $consulta= $con->prepare("SELECT user_id FROM users WHERE user_email = ?");
