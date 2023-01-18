@@ -39,9 +39,9 @@ for ($i=0; $i<count($_FILES["inputFiles"]["name"]); $i++) {
         $inputFiles = $_POST['inputFiles'];
         $lat = (string)$_POST['lat'];
         $lng = (string)$_POST['lng'];
-
+        
         $direccion = $_POST['adreca'];
-        $nombreArchivos = implode(";", $nombreArchivos);
+        $nombreArchivos = implode(" ", $nombreArchivos);
         
         // INGRESA PRODUCTE
         if(comprovaNomUnic($con, $nomProducto)) {          

@@ -56,7 +56,7 @@ if(!isset($_SESSION['userEmail'])) {
             <td>
                 <?php 
                     
-                    $arrImgs = explode(";", $mostrar['producto_imgs']);
+                    $arrImgs = explode(" ", $mostrar['producto_imgs']);
                     echo "<div style='display:flex;'>";
                     foreach ($arrImgs as $img) {
                         if($img != null) echo "<img style='height: 200px; width: 250px;' class='imatges' src='public/".$img."'>"; 
@@ -67,7 +67,7 @@ if(!isset($_SESSION['userEmail'])) {
             
             <td>
                 <div class="crud" style="">
-                    <?php echo "<a href='editar.php?id=".$mostrar['producto_id']."&name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['categoria_id']."&imgs=".$mostrar['producto_imgs']."&lat=".$mostrar['lat']."&lng=".$mostrar['lng']."&subcategoriaId=".$mostrar['subcategoria_id']."&direccio=".$mostrar['direccion']."'>Editar</a>"?>
+                    <?php echo "<a href='editar.php?id=".$mostrar['producto_id']."&name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['categoria_id']."&imgs=".$mostrar['producto_imgs']."&lat=".$mostrar['lat']."&lng=".$mostrar['lng']."&subcategoriaId=".$mostrar['subcategoria_id']."&direccio=".$mostrar['direccion'].".&productoId=".$mostrar['producto_id']."'>Editar</a>"?>
                     <br><br>
                     <?php echo "<a href='eliminar.php?id=".$mostrar['producto_id']."'>Eliminar</a>"?>
                 </div>
