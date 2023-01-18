@@ -67,7 +67,7 @@ if(!isset($_SESSION['userEmail'])) {
             
             <td>
                 <div class="crud" style="">
-                    <?php echo "<a href='editar.php?id=".$mostrar['producto_id']."&name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."&lat=".$mostrar['lat']."lng=".$mostrar['lng']."'>Editar</a>"?>
+                    <?php echo "<a href='editar.php?id=".$mostrar['producto_id']."&name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['categoria_id']."&imgs=".$mostrar['producto_imgs']."&lat=".$mostrar['lat']."&lng=".$mostrar['lng']."&subcategoriaId=".$mostrar['subcategoria_id']."&direccio=".$mostrar['direccion']."'>Editar</a>"?>
                     <br><br>
                     <?php echo "<a href='eliminar.php?id=".$mostrar['producto_id']."'>Eliminar</a>"?>
                 </div>

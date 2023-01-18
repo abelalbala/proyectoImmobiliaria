@@ -13,7 +13,7 @@ if(!isset($_SESSION['userEmail'])) {
 ?>
 
 <div class="main">
-    <form id="form" action="actProducto.php" method="POST" enctype="multipart/form-data">
+    <form id="form" action="updateProduct.php" method="POST" enctype="multipart/form-data">
         <label for="">Nombre</label>
         <br>
         <input type="text" name="nomProducto" value="<?php echo $_GET['name'] ?>">
@@ -43,11 +43,11 @@ if(!isset($_SESSION['userEmail'])) {
         <div id="preview"></div>
         <div id="map"></div>  
         <br>
-        <input id="inptCalle" type="text" name="adreca" value="Carrer de la Selva de Mar 211 08020 Barcelona" id="adreca"/>  
+        <input id="inptCalle" type="text" name="adreca" value="<?php echo $_GET['direccio'] ?>" id="adreca"/>  
         <button type="button" class="btn btn-secondary" id="findLoc">Buscar adreça</button>  
         <br>
-        <input type="hidden" name="lat" value="" id="latitude" value="<?php echo $_GET['lat'] ?>"/>  
-        <input type="hidden" name="lng" value="" id="longitude" value="<?php echo $_GET['lng'] ?>"/> 
+        <input type="hidden" name="lat" id="latitude" value="<?php echo $_GET['lat'] ?>"/>  
+        <input type="hidden" name="lng" id="longitude" value="<?php echo $_GET['lng'] ?>"/> 
         <br><br>
         <input id="inputSubmit" type="submit">
     </form>
