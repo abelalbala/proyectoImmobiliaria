@@ -1,6 +1,5 @@
 let map;
 let marker;
-
 function initMap() {
   const myLatLng = { lat: 41.390205, lng: 2.154007 };
   const map = new google.maps.Map(document.getElementById("map"), {
@@ -25,7 +24,7 @@ function initMap() {
         if(marker != undefined) {
           marker.setMap(null)
         }
-        console.log("a")
+        
         marker = new google.maps.Marker({
           position: { lat: latitude, lng: longitude },
           map,

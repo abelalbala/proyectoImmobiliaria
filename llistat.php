@@ -21,14 +21,15 @@ if(!isset($_SESSION['userEmail'])) {
         <th>Precio</th>
         <th>Precio descuento</th>
         <th>Descripcion</th>
-        <th>Mapa</th>
+        <th>Direccio</th>
         <th>Categoria</th>
         <th>Subcategoria</th>
         <th>Imagenes</th>
 
         </tr>
 
-        <?php       
+        <?php
+        $index = 0;     
         try { 
             $con = new mysqli('localhost', 'abel', 'abel', 'daw_m7');
             if ($con->connect_errno) {
@@ -42,18 +43,20 @@ if(!isset($_SESSION['userEmail'])) {
         ?>
         
         <tr>
-            <td><?php echo $mostrar['producto_name']; ?></td>
+            <td id="nombre"><?php echo $mostrar['producto_name']; ?></td>
             <td><?php echo $mostrar['producto_precio']; ?></td>
             <td><?php echo $mostrar['producto_precio_descuento']; ?></td>
             <td><?php echo $mostrar['producto_descripcion']; ?></td>
-            
-            <td> <div id="map" style="width: 500px; height: 50px;"></div> </td>
+            <?php $index++; ?>
+
+            <td><?php echo $mostrar['direccion']; ?></td>
 
             <td><?php echo buscaCategoriaId($con, $mostrar['categoria_id']); ?></td>
             <td><?php echo buscaSubcategoriaId($con, $mostrar['subcategoria_id']); ?></td>
             <td>
                 <?php 
-                    $arrImgs = explode(" ", $mostrar['producto_imgs']);
+                    
+                    $arrImgs = explode(";", $mostrar['producto_imgs']);
                     echo "<div style='display:flex;'>";
                     foreach ($arrImgs as $img) {
                         if($img != null) echo "<img style='height: 200px; width: 250px;' class='imatges' src='public/".$img."'>"; 
@@ -64,7 +67,7 @@ if(!isset($_SESSION['userEmail'])) {
             
             <td>
                 <div class="crud" style="">
-                    <?php echo "<a href='editar.php?id=".$mostrar['producto_id']."&name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."'>Editar</a>"?>
+                    <?php echo "<a href='editar.php?id=".$mostrar['producto_id']."&name=".$mostrar['producto_name']."&precio=".$mostrar['producto_precio']."&precioDescuento=".$mostrar['producto_precio_descuento']."&descripcion=".$mostrar['producto_descripcion']."&categoriaId=".$mostrar['subcategoria_id']."&imgs=".$mostrar['producto_imgs']."&lat=".$mostrar['lat']."lng=".$mostrar['lng']."'>Editar</a>"?>
                     <br><br>
                     <?php echo "<a href='eliminar.php?id=".$mostrar['producto_id']."'>Eliminar</a>"?>
                 </div>
@@ -79,7 +82,6 @@ if(!isset($_SESSION['userEmail'])) {
     </table>
 </div>
 
-<script src="scripts/scriptRecullMapa"></script>
 
 <style>
     th, td {
@@ -166,5 +168,5 @@ function buscaSubcategoriaId($con, $subcategoriaId) {
 }
 
 ?>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1LqPNfReHlA4RTAU1YOuVKZxTqvCPa0g&callback=initMap" async defer></script>
 <?php get_footer(); ?>

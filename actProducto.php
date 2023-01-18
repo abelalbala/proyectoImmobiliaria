@@ -22,40 +22,43 @@ for ($i=0; $i<count($_FILES["inputFiles"]["name"]); $i++) {
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+   
     try { 
         $con = new mysqli('localhost', 'abel', 'abel', 'daw_m7');
         if ($con->connect_errno) {
             printf("Connect failed: %s\n", $mysqli->connect_error);
             exit();
         } 
-        $nomProducto = $_POST['nomProducto'];
+        $nomProducto = $_POST["nomProducto"];
         $preuProducto = $_POST['preuProducto'];
         $preuDescompteProducto = $_POST['preuDescompteProducto'];
         $descripcioProducto = $_POST['descripcioProducto'];
         $categoria_id = $_POST['Categorias'];
         $subcategoria_id = $_POST['selectSubcategorias'];
         $inputFiles = $_POST['inputFiles'];
-        $lat = $_POST['lat'];
-        $lng = $_POST['lng'];
+        $lat = (string)$_POST['lat'];
+        $lng = (string)$_POST['lng'];
 
+        $direccion = $_POST['adreca'];
         $nombreArchivos = implode(";", $nombreArchivos);
         
         // INGRESA PRODUCTE
         if(comprovaNomUnic($con, $nomProducto)) {          
             $userId = buscaUserId($con);
-            $consulta= $con->prepare("INSERT INTO productos(user_id, producto_name, producto_precio, producto_precio_descuento, producto_descripcion, producto_imgs, lat, lng, categoria_id, subcategoria_id) VALUES (?,?,?,?,?,?,?,?,?,?)");
-            $consulta->bind_param("isiissiiii", $userId, $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $nombreArchivos, $lat, $lng, $categoria_id, $subcategoria_id);
+            $consulta= $con->prepare("INSERT INTO productos(user_id, producto_name, producto_precio, producto_precio_descuento, producto_descripcion, producto_imgs, lat, lng, categoria_id, subcategoria_id, direccion) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+            $consulta->bind_param("isiissssiis", $userId, $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $nombreArchivos, $lat, $lng, $categoria_id, $subcategoria_id, $direccion);
             $consulta->execute();
             
             header("Location: ./llistat.php");
+            quit();
             
         } else echo "Ya has ingresat un producte amb el mateix nom o alguna dada no es correctes!!";
 
     } catch (Exception $e) {
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }
-}
+//}
 
 function comprovaNomUnic($con, $nomProducto) {
     $consulta= $con->prepare("SELECT producto_name FROM productos WHERE producto_name = ?");

@@ -46,15 +46,15 @@ if(!isset($_SESSION['userEmail'])) {
         <input id="inptCalle" type="text" name="adreca" value="Carrer de la Selva de Mar 211 08020 Barcelona" id="adreca"/>  
         <button type="button" class="btn btn-secondary" id="findLoc">Buscar adreça</button>  
         <br>
-        <input type="hidden" name="lat" value="" id="latitude"/>  
-        <input type="hidden" name="lng" value="" id="longitude"/> 
+        <input type="hidden" name="lat" value="" id="latitude" value="<?php echo $_GET['lat'] ?>"/>  
+        <input type="hidden" name="lng" value="" id="longitude" value="<?php echo $_GET['lng'] ?>"/> 
         <br><br>
         <input id="inputSubmit" type="submit">
     </form>
 </div>
 <script src="scripts/scriptDrag.js"></script>
 <script src="scripts/scriptCategorias.js"></script>
-<script src="scripts/scriptMap.js"></script>
+<script src="scripts/scriptRecullMapa.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1LqPNfReHlA4RTAU1YOuVKZxTqvCPa0g&callback=initMap" async defer></script>
 
 
