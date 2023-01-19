@@ -26,6 +26,10 @@ get_header("home");
         <p class="checkPassword" id="num">* 1 numero</p>
         <p class="checkPassword" id="specialChar">* 1 caracter especial</p>
         <br>
+        <label for="validationPasswordConfirma">Confirma Password</label>
+        <br>
+        <input type="password" name="passwordConfirma" id="validationPasswordConfirma">
+        <br><br>
         <input type="submit" >
     </form>
 </div>
@@ -42,19 +46,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } 
         $userName = $_POST['userName'];
         $userEmail = $_POST['email'];
-        $userPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        if(comprovaEmailUnic($con, $userEmail)) {
-            $consulta= $con->prepare("INSERT INTO users(user_name, user_email, user_password) VALUES (?,?,?)");
-            $consulta->bind_param("sss", $userName, $userEmail, $userPassword);
-            $consulta->execute();
+        if($userName == "" || $userEmail == "") {
+            echo "<h4 style='margin-left: 100px;'>Has d'omplir tots el camps</h4>";
 
-            // Redirigir a su sesion de aplicacion
-            $_SESSION['userEmail'] = $userEmail;
-            header("Location: ./producto.php");
-            quit();
-            
-        } else echo "Email repetit, posa un altre per registrarte!!";
+        } else {
+
+            if($_POST['password'] != $_POST['passwordConfirma']) {
+                echo "<h4 style='margin-left: 100px;'>Les contraseñas han de coincidir</h4>";
+            } else {
+                $userPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    
+                if(comprovaEmailUnic($con, $userEmail)) {
+                    $consulta= $con->prepare("INSERT INTO users(user_name, user_email, user_password) VALUES (?,?,?)");
+                    $consulta->bind_param("sss", $userName, $userEmail, $userPassword);
+                    $consulta->execute();
+    
+                    // Redirigir a su sesion de aplicacion
+                    $_SESSION['userEmail'] = $userEmail;
+                    header("Location: ./producto.php");
+                    quit();
+                    
+                } else echo "<h4 style='margin-left: 100px;'>Email repetit, posa un altre per registrarte!!</h4>";
+            }
+        }
 
     } catch (Exception $e) {
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
@@ -73,9 +88,3 @@ function comprovaEmailUnic($con, $userEmail) {
 ?>
 
 <?php get_footer(); ?>
-
-<?php
-
-
-
-?>
