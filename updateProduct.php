@@ -33,6 +33,7 @@ for ($i=0; $i<count($_FILES["inputFiles"]["name"]); $i++) {
             exit();
         } 
         $productoId = $_POST["productoId"];
+        echo $productoId;
         $nomProducto = $_POST["nomProducto"];
         $preuProducto = $_POST['preuProducto'];
         $preuDescompteProducto = $_POST['preuDescompteProducto'];
@@ -49,8 +50,9 @@ for ($i=0; $i<count($_FILES["inputFiles"]["name"]); $i++) {
         
         // INGRESA PRODUCTE         
             $userId = buscaUserId($con);
-            $consulta= $con->prepare("UPDATE productos SET producto_name = '.$nomProducto.', producto_precio = '.$preuProducto.', producto_precio_descuento = '.$preuDescompteProducto.', producto_descripcion = '.descripcioProducto.', lat='.$lat.', lng='.$lng.', categoria_id='.$categoria_id.', subcategoria_id='.$subcategoria_id.', direccion='.$direccion.' WHERE producto_id=.$productoId.;");
-            $consulta->bind_param("i", $productoId);
+            $consulta= $con->prepare("UPDATE productos SET producto_name = ?, producto_precio = ?, producto_precio_descuento = ?, producto_descripcion = ?, lat= ?, lng= ?, categoria_id= ?, subcategoria_id= ?, direccion= ? WHERE producto_id= ?;");
+            $consulta->bind_param("siisssiisi", $nomProducto, $preuProducto, $preuDescompteProducto, $descripcioProducto, $lat, $lng, $categoria_id, $subcategoria_id, $direccion, $productoId);
+            
             $consulta->execute();
             
             header("Location: ./llistat.php");
